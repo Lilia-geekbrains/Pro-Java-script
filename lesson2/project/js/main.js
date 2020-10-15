@@ -30,6 +30,13 @@ class ProductList {
       block.insertAdjacentHTML('beforeend', productObject.getGoodHTML());
     }
   }
+
+  totalCost() { 
+    let totalCost = 0;
+    this._allProducts.forEach (function (product) {
+      totalCost += product.price;
+    });
+  }
 }
 
 class ProductItem {
@@ -53,6 +60,61 @@ class ProductItem {
 }
 
 const list = new ProductList();
+
+
+class Basket {
+  constructor(container = '.btn-cart'){
+    this.container = container;
+    this.items = [];
+  }
+
+ renderItems() {
+
+
+   //метод генерирует состав выбранных товаров (в разметке должен быть дата-атрибут со стоимостью товаров, чтобы использовать его при подсчете)
+ }
+
+
+ 
+}
+
+
+const basket = new Basket();
+
+
+class BasketElem {
+  constructor (product, amount) {
+    this.title = product.title;
+    this.price = product.price;
+    this.id = product.id;
+    this.amount = amount;
+  }
+
+  renderElement(){
+
+    //метод будет формировать разметку элемента корзины, с учетом количества позиций и стоимости
+    /*return `<div class="basketElem" data-id="${this.id}" data-totalPrice="${(this.price)*(this.amount)}">
+              <div class="basketDesc">
+                  <h3 class="baskH3">${this.title}</h3>
+                  <p class="amount">${this.amount}</p>
+                  <p class="baskP">${(this.price)*(this.amount)} \u20bd</p>
+              </div>
+            </div>` */
+    
+  }
+
+  addToBasket() {
+     //метод будет решать, какой товар добавить в корзину с помощью слушателя события клика по кнопке Добавить в корзину
+
+    //let buyButton = document.querySelector('.buy-btn');
+
+    //buyButton.addEventListener('click', function (event) {
+    //    let basketElem = current.target.renderElement();
+    //})
+   
+  }
+}
+
 
 // const products = [
 //   {id: 1, title: 'Notebook', price: 20000},
