@@ -15,7 +15,7 @@ let getRequest = (url, cb) => {
   };
   xhr.send();
 };
-
+//test
 // –--------------------------------
 
 class ProductList {
