@@ -1,4 +1,5 @@
 const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
+https://github.com/GeekBrainsTutorial/online-store-api/tree/master/responses
 
 // Переделать в ДЗ не использовать fetch а Promise
 let getRequest = (url, cb) => {
@@ -68,6 +69,10 @@ class ProductList {
       block.insertAdjacentHTML('beforeend', productObject.getGoodHTML());
     }
   }
+
+  createCart() {
+      return new Cart();
+  }
 }
 
 class ProductItem {
@@ -91,3 +96,79 @@ class ProductItem {
 }
 
 const list = new ProductList();
+
+
+class Cart {
+  #goods;
+
+  constructor(container = '.cart') {
+    this.container = container;
+    this.#goods = [];
+
+
+    this.#addToCart().then((data) => {
+      if(data = true) {
+      this.#render();
+    });
+      console.log(this.#goods);
+  }
+  #addToCart() {
+    return fetch(`${API}/addToBasket.json`)
+        .then(response => response.json())
+        .catch((error) => {
+          console.log(error);
+        });
+  }
+
+  sum() {
+    return this.#goods.reduce((sum, { price }) => sum + price, 0);
+  }
+
+  #render() {
+    const basket = document.querySelector(this.container);
+
+    for (let product of this.#goods) {
+      const cartProductObject = new CartItem(product);
+
+      this.#goods.push(cartProductObject);
+
+      block.insertAdjacentHTML('beforeend', cartProductObject.getGoodHTML());
+    }
+  }
+}
+
+  class CartItem {
+    constructor(cartItem, img='https://placehold.it/200x150') {
+      this.title = cartItem.title;
+      this.price = cartItem.price;
+      this.id = cartItem.id;
+      this.amount = cartItem.amount;
+      this.img = img;
+    }
+
+  getGoodHTML() {
+      
+    
+      let newCartItem = `<div class="cart-item" data-id="${this.id}">
+                <img src="${this.img}" alt="Some img">
+                <div class="cartItemDesc">
+                    <h3>${this.title}</h3>
+                    <p>${this.price} \u20bd</p>
+                    <button class="delete-btn">удалить</button>
+                </div>
+              </div>`;
+      return newCartItem;
+      
+  
+    } 
+
+    ItemAmount() {
+      let buy-btn = document.querySelector('.buy-btn');
+      let delete-btn = document.querySelector('.delete-btn');
+
+      buy-btn.
+    }
+
+
+  }
+    
