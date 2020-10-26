@@ -3,7 +3,8 @@ const products = [
     {id: 2, title: 'Mouse', price: 1500},
     {id: 3, title: 'Keyboard', price: 5000},
     {id: 4, title: 'Gamepad', price: 4500},
-  ];
+  ]; 
+  //';k'
   
   const renderProduct = (title, price, img = 'http://unsplash.it/193/193?random&gravity=center') => {
     return `<div class="product-item">
