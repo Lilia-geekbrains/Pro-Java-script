@@ -11,8 +11,10 @@ const app = new Vue({
                 .then(result => result.json())
                 .catch(error => {
                     console.log(error);
+                    this.$root.$refs.error.getErrorMsg(true);
                 })
         },
+        
     },
     mounted() {
         console.log(this);
