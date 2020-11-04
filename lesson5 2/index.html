@@ -59,7 +59,7 @@
     <h2 v-else>Now I'm visible</h2>
     <button @click="show = !show">Change</button>
     <div class="products">
-        <div class="product" v-for="product of products" :key="product.title">
+        <div class="product" v-for="product of products" :key="product.title" v-show="showBlock">
             <img :src="product.img" alt="">
             <div>
                 <p>{{ product.title }}</p>

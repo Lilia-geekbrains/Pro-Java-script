@@ -6,6 +6,16 @@ const app = new Vue({
         catalogUrl: '/catalogData.json',
         products: [],
         imgCatalog: 'https://placehold.it/200x150',
+        searchLine: '',
+        showCart: false,
+        filtred: [],
+        cartUrl: '/getBasket.json',
+        cartItems: [],
+        imgCart: 'https://placehold.it/50x100'
+
+
+        
+
     },
     methods: {
         getJson(url) {
@@ -16,8 +26,29 @@ const app = new Vue({
                 })
         },
         addProduct(product) {
-            console.log(product.id_product)
+            this.getJson(`${API}/addToBasket.json`)
+                .then (data => {
+                    if (data === 1){
+                        let find = this.cartItems.find(el => el.id_product === product.id_product);
+                        if(find) {
+                            find.quantity++;
+                        } else {
+                            let prod = Object.assign({quantity: 1}, product);
+                            this.cartItems.push(prod);
+                        }
+                    } else {
+                        console.log ('Error!');
+                    }
+                })
+            },
+
+        filterGoods(searchLine) {
+            const regexp = new RegExp(searchLine, 'gi');
+            this.filtred = this.products.filter(product => regexp.test(product.product_name));
         },
+           
+
+            
     },
     beforeCreate() {
         console.log('beforeCreate');
@@ -28,8 +59,15 @@ const app = new Vue({
             .then(data => {
                 for (el of data) {
                     this.products.push(el);
+                    this.filtred.push(el);
                 }
             });
+        this.getJson(`${API}${this.cartUrl}`)
+            .then(data => {
+                for (el of data.contents) {
+                    this.cartItems.push(el);
+                }
+            });    
     },
     beforeMount() {
         console.log('beforeMount');
@@ -42,6 +80,7 @@ const app = new Vue({
     },
     updated() {
         console.log('updated');
+    
     },
     beforeDestroy() {
         console.log('beforeDestroy');
