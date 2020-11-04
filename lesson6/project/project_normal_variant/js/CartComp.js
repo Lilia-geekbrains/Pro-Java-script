@@ -17,7 +17,7 @@ Vue.component('cart', {
                             find.quantity++;
                         } else {
                             let prod = Object.assign({quantity: 1}, product);
-                            this.cartItems.push(prod)
+                            this.cartItems.push(prod);
                         }
                     } else {
                         alert('Error');
@@ -28,13 +28,14 @@ Vue.component('cart', {
             this.$parent.getJson(`${API}/deleteFromBasket.json`)
                 .then(data => {
                     if(data.result === 1) {
-                        if(item.quantity>1){
+                        if(item.quantity > 1){
                             item.quantity--;
                         } else {
                             this.cartItems.splice(this.cartItems.indexOf(item), 1)
                         }
                     }
                 })
+                .catch()
         },
     },
     mounted(){
