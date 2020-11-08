@@ -2,6 +2,9 @@ const express = require('express');
 const fs = require('fs');
 const handler = require('./handler');
 const router = express.Router();
+const path = require('path');
+
+const cartJSONPath = path.resolve(__dirname, './db/userCart.json');
 
 router.get('/', (req, res) => {
   fs.readFile('./server/db/userCart.json', 'utf-8', (err, data) => {
@@ -14,12 +17,14 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  handler(req, res, 'add', './server/db/userCart.json');
+  handler(req, res, 'add', cartJSONPath);
 });
 // localhost:3000/api/cart/123 // req.params.id
 // localhost:3000/api/cart/?var1='sfsf'&var2='ada' // req.query
 router.put('/:id', (req, res) => {
-  handler(req, res, 'change', './server/db/userCart.json');
+  handler(req, res, 'change', cartJSONPath);
 });
-
+router.delete('/:id', (req, res) => {
+  handler(req, res, 'remove', cartJSONPath);
+});
 module.exports = router;
